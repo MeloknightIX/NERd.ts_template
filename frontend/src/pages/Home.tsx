@@ -1,7 +1,14 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  return <div>Hello World</div>;
+  return (
+    <div>
+      <h1>Hello World</h1>
+      <Link to="/somestringthatcannotbefound">
+        Check out the Not Found page!
+      </Link>
+    </div>
+  );
 };
 
 export default Home;
