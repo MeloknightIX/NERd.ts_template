@@ -1,3 +1,6 @@
+# ignore the node modules
 node_modules
+# ignore all hidden files
 .*
+# do not ignore .gitignore files (even though they are hidden)
 !.gitignore
