@@ -9,7 +9,7 @@
 
 You're ready to start coding!
 
-###Posting Issues
+### Posting Issues
 
-Feel free to post notices on any errors or bugs if you encounter them. 
+Feel free to post notices on any errors or bugs if you encounter them. <br/>
 I'm also open to suggestions, although I can't promise I will work on them as I'm only supporting this template in my free time and for educational purposes. 
