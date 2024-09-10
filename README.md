@@ -8,3 +8,8 @@
 6. Add all files (except gitignored) and push initial commit: </br> `cd ../ && git add . && git commit -m "initial commit" && git push`
 
 You're ready to start coding!
+
+###Posting Issues
+
+Feel free to post notices on any errors or bugs if you encounter them. 
+I'm also open to suggestions, although I can't promise I will work on them as I'm only supporting this template in my free time and for educational purposes. 
