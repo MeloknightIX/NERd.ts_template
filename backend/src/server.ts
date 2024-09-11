@@ -20,8 +20,5 @@ app.use("/api/items", itemRoutes);
 
 // listen for requests
 app.listen(process.env.PORT, () => {
-  console.log(
-    "successfully connected to db. listening for requests on port " +
-      process.env.PORT
-  );
+  console.log("listening for requests on port " + process.env.PORT);
 });
