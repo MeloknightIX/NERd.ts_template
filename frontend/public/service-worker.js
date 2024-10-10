@@ -3,7 +3,10 @@ const dynamicCache = "dynamic-cache-v1";
 const staticAssets = [
   "/",
   "/index.html",
-  "/favicon.ico",
+  "/images/favicon.ico",
+  "/images/favicon.png",
+  "/images/screenshotNarrow.png",
+  "/images/screenshotWide.png",
   "/manifest.json",
   "/static/js/bundle.js",
 ];
