@@ -5,7 +5,7 @@ const Home = () => {
     <div>
       <h1>Hello World</h1>
       <Link to="/somestringthatcannotbefound">
-        Check out the Not Found page!
+        Check out the not-found page!
       </Link>
     </div>
   );

@@ -5,7 +5,8 @@ const NotFound = () => {
     <div>
       <h1>Not Found</h1>
       <p>It appears the page you are looking for could not be found. </p>
-      <Link to="/">navigate back to the homepage</Link>
+      <p>This error may occur if you are offline. </p>
+      <Link to="/">Navigate back to the homepage</Link>
     </div>
   );
 };
