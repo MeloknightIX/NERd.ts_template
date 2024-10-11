@@ -12,11 +12,11 @@ const app = express();
 // middleware
 app.use(express.json());
 
-// // uncomment for production
-// app.use(express.static(path.join(__dirname, "../../frontend/build")));
-// app.get("*", (req: Request, res: Response) => {
-//   res.sendFile(path.resolve(__dirname, "../../frontend/build", "index.html"));
-// });
+// uncomment for production
+app.use(express.static(path.join(__dirname, "../../frontend/build")));
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.resolve(__dirname, "../../frontend/build", "index.html"));
+});
 
 // logging requests
 app.use((req: Request, res: Response, next: NextFunction) => {
