@@ -4,7 +4,7 @@
 2. In your new repo in the browser, tap "Code" and copy the URL.
 3. In a terminal, navigate to the folder that should contain your project (the one above the root folder) and, using the copied URL, type: </br> `git clone https://github.com/[username]/[projectName].git`
 4. Navigate to the project's root folder and then install all dependencies using: </br> `cd backend && npm install && cd ../frontend && npm install`
-5. In backend/private/ add a file called .env with an entry of </br> `PORT=4000`
+5. In backend/private/ add a file called .env with an entry of </br>`NODE_ENV="development"` (set to "production" for production after running `npm run build` in frontend) <br/> `PORT=4000`
 6. Add all files (except gitignored) and push initial commit: </br> `cd ../ && git add . && git commit -m "initial commit" && git push`
 
 You're ready to start coding!
