@@ -1,5 +1,4 @@
 <h3>Using the Template</h3>
-
 <details>
     <summary><h5>Initialisation</h5></summary>
     <ol>
@@ -12,7 +11,6 @@
     <li>Add all files (except gitignored) and push initial commit: </br> <code>cd ../ && git add . && git commit -m "initial commit" && git push</code></li>
     </ol>
 </details>
-
 <details>
     <summary><h5>Development</h5></summary>
     <ol>
@@ -20,7 +18,6 @@
     <li>run from within frontend: <code>npm run dev</code></li>
     </ol>
 </details>
-
 <details>
     <summary><h5>Production</h5></summary>
     <ol>
@@ -31,6 +28,5 @@
 </details>
 
 <h3>Posting Issues</h3>
-
 Feel free to post notices on any errors or bugs, if you encounter them. <br/>
 I'm also open to improvement suggestions, although I can't promise I will work on them as I'm only supporting this template as a hobby.
