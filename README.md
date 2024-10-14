@@ -2,7 +2,7 @@
 
 ##### Initialisation
 
-1. Click "use this template" and "create a new repository" then fill out the initialisation form.
+1. Click "use this template" and "create a new repository", then fill out the initialisation form.
 2. In your new repo in the browser, tap "Code" and copy the URL.
 3. In a terminal, navigate to the folder that should contain your project (the one above the root folder) and, using the copied URL, type: </br> `git clone https://github.com/[username]/[projectName].git`
 4. Navigate to the project's root folder and then install all dependencies using: </br> `cd backend && npm install && cd ../frontend && npm install`
