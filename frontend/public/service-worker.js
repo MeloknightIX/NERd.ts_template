@@ -12,7 +12,7 @@ const staticAssets = [
 ];
 
 self.addEventListener("install", (event) => {
-  console.log("service Worker: installed");
+  console.log("Service Worker: installed");
   event.waitUntil(
     // precache all staticAssets
     caches.open(staticCache).then((cache) => {
