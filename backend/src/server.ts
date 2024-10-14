@@ -12,11 +12,13 @@ const app = express();
 // middleware
 app.use(express.json());
 
-// uncomment for production
+// for production
+if (process.env.NODE_ENV==="production"){
 app.use(express.static(path.join(__dirname, "../../frontend/build")));
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.resolve(__dirname, "../../frontend/build", "index.html"));
-});
+})
+};
 
 // logging requests
 app.use((req: Request, res: Response, next: NextFunction) => {
