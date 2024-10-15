@@ -16,8 +16,8 @@
     <p>(run from project root)</p>
     <h5>Develpment</h5>
       <ul>
-        <li>run from within backend: <code>cd backend && npm run dev</code></li>
-        <li>run from within frontend: <code>cd frontend && npm run dev</code></li>
+        <li><code>cd backend && npm run dev</code></li>
+        <li><code>cd frontend && npm run dev</code></li>
       </ul>
     <h5>Production</h5>
       <code>cd frontend && npm run build && cd ../backend && npm run start</code>
