@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development tsx watch src/server.ts",
-    "start": "cross-env NODE_ENV=production tsx src/server.ts"
+    "start": "cross-env NODE_ENV=production PORT=4000 tsx src/server.ts"
   },
   "author": "meloknightix",
   "license": "ISC",

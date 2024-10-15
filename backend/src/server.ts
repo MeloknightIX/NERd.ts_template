@@ -32,6 +32,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use("/api/items", itemRoutes);
 
 // listen for requests
-app.listen(process.env.PORT, () => {
-  console.log("http://" + hostname + ":" + process.env.PORT);
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+  console.log("http://" + hostname + ":" + port);
 });
