@@ -1,6 +1,6 @@
 {
-  "name": "NERT",
-  "short_name": "NERT",
+  "name": "NERd.ts",
+  "short_name": "NERd.ts",
   "start_url": ".",
   "display": "standalone",
   "orientation": "any",
