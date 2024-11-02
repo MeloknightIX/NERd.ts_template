@@ -2,6 +2,8 @@
 node_modules
 # ignore the production build
 build
+# ignore private files
+private
 # ignore all hidden files
 .*
 # do not ignore .gitignore files (even though they are hidden)
