@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
-import itemRoutes from "./routes/itemRoutes";
+import dataRoutes from "./routes/dataRoutes";
 import path, { dirname } from "path";
 import { hostname } from "os";
 import { fileURLToPath } from "url";
@@ -29,7 +29,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // routes
-app.use("/api/items", itemRoutes);
+app.use("/api/data", dataRoutes);
 
 // listen for requests
 const port = process.env.PORT || 4000;

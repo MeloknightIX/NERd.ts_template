@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "key": "N",
+    "value": "Node"
+  },
+  {
+    "key": "E",
+    "value": "Express"
+  },
+  {
+    "key": "R",
+    "value": "React"
+  },
+  {
+    "key": "d",
+    "value": "a database solution of your choice"
+  },
+  {
+    "key": ".ts",
+    "value": "TypeScript"
+  }
+]
