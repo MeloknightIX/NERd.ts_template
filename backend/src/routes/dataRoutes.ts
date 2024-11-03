@@ -5,7 +5,7 @@ import { join } from "path";
 
 const router = express.Router();
 
-const path = join(process.cwd(), "src", "data", "items.json");
+const path = join(process.cwd(), "src", "data", "data.json");
 
 const getData = async (req: Request, res: Response) => {
   try {

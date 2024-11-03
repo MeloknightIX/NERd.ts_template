@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { DataType, useDataContext } from "../utils/DataContext";
+import { useDataContext } from "../utils/DataContext";
 
 const Home = () => {
   const { data, isLoading, error } = useDataContext();

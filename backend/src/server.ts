@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === "production") {
 
 // logging requests
 app.use((req: Request, res: Response, next: NextFunction) => {
-  console.log(req.method, req.path);
+  console.info(req.method, req.path);
   next();
 });
 
@@ -34,5 +34,5 @@ app.use("/api/data", dataRoutes);
 // listen for requests
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
-  console.log("http://" + hostname + ":" + port);
+  console.info("http://" + hostname + ":" + port);
 });

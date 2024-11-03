@@ -1,5 +1,6 @@
 const staticCache = "static-cache-v1";
 const dynamicCache = "dynamic-cache-v1";
+const dataCache = "data-cache-v1";
 const staticAssets = [
   "/",
   "/index.html",
@@ -12,23 +13,26 @@ const staticAssets = [
 ];
 
 self.addEventListener("install", (event) => {
-  console.log("Service Worker: installed");
   event.waitUntil(
-    // precache all staticAssets
     caches.open(staticCache).then((cache) => {
       cache.addAll(staticAssets);
+      console.info("service worker: adding static assets");
     })
   );
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
-  console.log("Service Worker: activated");
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
         keys.map((key) => {
-          if (key !== staticCache && key !== dynamicCache) {
-            console.log("Service Worker: removing old cache", key);
+          if (
+            key !== staticCache &&
+            key !== dynamicCache &&
+            key !== dataCache
+          ) {
+            console.info("service worker: deleting old cashes");
             return caches.delete(key);
           }
         })
@@ -38,20 +42,29 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  console.log("Service Worker: fetching");
+  const requestUrl = new URL(event.request.url);
   event.respondWith(
     caches.match(event.request).then((cacheRes) => {
-      return (
-        // return content from staticCache or dynamicCache
-        cacheRes ||
-        // if not found and online, return content from server via fetch
-        fetch(event.request).then(async (fetchRes) => {
-          // save content to dynamicCache
-          const cache = await caches.open(dynamicCache);
-          cache.put(event.request.url, fetchRes.clone());
-          return fetchRes;
-        })
-      );
+      if (requestUrl.pathname.startsWith("/api/")) {
+        console.info("service worker: fetching data from network or cache");
+        return fetchAndSaveToCache(event, dataCache).catch(() => cacheRes);
+      } else {
+        console.info(
+          "service worker: fetching static or dynamic content from cache or network"
+        );
+        return cacheRes || fetchAndSaveToCache(event, dynamicCache);
+      }
     })
   );
 });
+
+const fetchAndSaveToCache = async (event, cacheName) => {
+  try {
+    const fetchRes = await fetch(event.request);
+    const cache = await caches.open(cacheName);
+    cache.put(event.request.url, fetchRes.clone());
+    return fetchRes;
+  } catch (error) {
+    throw error;
+  }
+};

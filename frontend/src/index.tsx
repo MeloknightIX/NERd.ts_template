@@ -12,11 +12,11 @@ ReactDOM.createRoot(document.getElementById("root") as Container).render(
   </React.StrictMode>
 );
 
-const serviceWorkerOptIn = false;
+const serviceWorkerOptIn = true;
 
 if (serviceWorkerOptIn && "serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("./service-worker.js")
-    .then(() => console.log("Service Worker: registered"))
-    .catch(() => console.log("Service Worker: failed to register"));
+    .then(() => console.info("service worker: registered"))
+    .catch(() => console.info("service worker: failed to register"));
 }
