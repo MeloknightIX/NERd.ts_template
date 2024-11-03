@@ -1,6 +1,5 @@
 <h1>NERd.ts_template</h1>
 <p>Node, Express, React and a database solution of your choice – all in TypeScript!</p>
-<h2>by MeloknightIX</h2>
 <h3>Using the Template</h3>
 
   <h4>Initialisation</h4>
