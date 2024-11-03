@@ -49,16 +49,15 @@ export const DataProvider = ({ children }: DataProviderProps) => {
 
   const postData = async (newData: DataType) => {
     const prevData = data;
-    // update context
-    setData([...prevData, newData]);
-    // update DB
     try {
-      await axios.post("api/data/", newData, {
+      // update DB
+      await axios.post("api/data/", [...prevData, newData], {
         headers: { "Content-Type": "application/json" },
       });
+      // update context
+      setData([...prevData, newData]);
     } catch (error) {
-      console.error("failed updating database", error);
-      setData(prevData);
+      window.alert("failed to update: you must be online");
     }
   };
 

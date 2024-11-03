@@ -1,3 +1,4 @@
+// make sure to change the versioning when deploying a new update (otherwise will give infinite reloads)
 const staticCache = "static-cache-v1";
 const dynamicCache = "dynamic-cache-v1";
 const dataCache = "data-cache-v1";
@@ -32,7 +33,7 @@ self.addEventListener("activate", (event) => {
             key !== dynamicCache &&
             key !== dataCache
           ) {
-            console.info("service worker: deleting old cashes");
+            console.info("service worker: deleting old cache", key);
             return caches.delete(key);
           }
         })
