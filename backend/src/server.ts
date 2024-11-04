@@ -4,6 +4,7 @@ import dataRoutes from "./routes/dataRoutes";
 import path, { dirname } from "path";
 import { hostname } from "os";
 import { fileURLToPath } from "url";
+import { PrismaClient } from "../node_modules/.prisma/client/index";
 
 dotenv.config({ path: process.cwd() + "/private/.env" });
 

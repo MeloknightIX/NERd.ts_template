@@ -1,39 +1,61 @@
 import express, { Request, Response } from "express";
-import { readFile, writeFile } from "fs";
-import { status200, status404, status500 } from "../utils/statusResponses";
+import { status200, status500 } from "../utils/statusResponses";
 import { join } from "path";
+import { PrismaClient } from "../../node_modules/.prisma/client/index";
 
 const router = express.Router();
+const prisma = new PrismaClient();
 
 const path = join(process.cwd(), "src", "data", "data.json");
 
 const getData = async (req: Request, res: Response) => {
   try {
-    readFile(path, "utf8", (error, data) => {
-      if (error) return status404(res, "file not found");
-      try {
-        status200(res, JSON.parse(data));
-      } catch (error) {
-        status500(res, "error reading file");
-      }
-    });
+    const data = await prisma.data.findMany();
+    return status200(res, data);
   } catch (error) {
-    status500(res, "server error");
+    return status500(res, "error retrieving data");
   }
 };
-router.get("/", getData);
 
 const postData = async (req: Request, res: Response) => {
   try {
-    const data = req.body;
-    writeFile(path, JSON.stringify(data, null, 2), (error) => {
-      if (error) return status500(res, "error writing file");
-      status200(res, data);
+    const newItem = await prisma.data.create({
+      data: req.body,
     });
+    return status200(res, newItem);
   } catch (error) {
-    status500(res, "server error");
+    return status500(res, "error adding data");
   }
 };
+
+const patchData = async (req: Request, res: Response) => {
+  try {
+    const id = parseInt(req.params.index, 10);
+    const updatedItem = await prisma.data.update({
+      where: { id },
+      data: req.body,
+    });
+    return status200(res, updatedItem);
+  } catch (error) {
+    return status500(res, "error updating data");
+  }
+};
+
+const deleteData = async (req: Request, res: Response) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    await prisma.data.delete({
+      where: { id },
+    });
+    return status200(res, id);
+  } catch (error) {
+    return status500(res, "error deleting data");
+  }
+};
+
+router.get("/", getData);
 router.post("/", postData);
+router.patch("/:id", patchData);
+router.delete("/:id", deleteData);
 
 export default router;

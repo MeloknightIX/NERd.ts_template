@@ -10,14 +10,17 @@ import {
 export type DataType = {
   key: string;
   value: string;
+  id?: number;
 };
 
 type DataContextType = {
   data: DataType[];
   isLoading: boolean;
   error: null | string;
-  postData: (newData: DataType) => Promise<void>;
   isOffline: boolean;
+  postData: (newData: DataType) => Promise<void>;
+  deleteData: (index: number) => Promise<void>;
+  patchData: (index: number, newData: DataType) => Promise<void>;
 };
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -31,23 +34,6 @@ export const DataProvider = ({ children }: DataProviderProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<null | string>(null);
   const [isOffline, setIsOffline] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const res = await axios.get<DataType[]>("api/data/");
-        setData(res.data);
-      } catch (error) {
-        const errorMessage = "failed fetching data";
-        setError(errorMessage);
-        console.error(errorMessage, error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
 
   useEffect(() => {
     const handleOnline = () => {
@@ -64,15 +50,46 @@ export const DataProvider = ({ children }: DataProviderProps) => {
     };
   }, []);
 
-  const postData = async (newData: DataType) => {
-    const prevData = data;
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    setIsLoading(true);
     try {
-      // update DB
-      await axios.post("api/data/", [...prevData, newData], {
+      const res = await axios.get<DataType[]>("api/data/");
+      setData(res.data);
+    } catch (error) {
+      setError("failed fetching data");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const postData = async (newData: DataType) => {
+    try {
+      await axios.post("api/data/", newData, {
         headers: { "Content-Type": "application/json" },
       });
-      // update context
-      setData([...prevData, newData]);
+      getData();
+    } catch (error) {
+      console.error("failed to add: you must be online");
+    }
+  };
+
+  const deleteData = async (id: number) => {
+    try {
+      await axios.delete("api/data/" + id);
+      getData();
+    } catch (error) {
+      console.error("failed to delete: you must be online");
+    }
+  };
+
+  const patchData = async (id: number, newData: DataType) => {
+    try {
+      await axios.patch("api/data/" + id, newData);
+      getData();
     } catch (error) {
       console.error("failed to update: you must be online");
     }
@@ -80,7 +97,15 @@ export const DataProvider = ({ children }: DataProviderProps) => {
 
   return (
     <DataContext.Provider
-      value={{ data, isLoading, error, postData, isOffline }}
+      value={{
+        data,
+        isLoading,
+        error,
+        postData,
+        deleteData,
+        patchData,
+        isOffline,
+      }}
     >
       {children}
     </DataContext.Provider>

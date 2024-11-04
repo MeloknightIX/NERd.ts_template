@@ -1,3 +1,0 @@
-# gitignore all files in private folder, except this one
-*
-!.gitignore
