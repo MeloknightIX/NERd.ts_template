@@ -8,9 +8,9 @@ import {
 } from "react";
 
 export type DataType = {
+  id?: number;
   key: string;
   value: string;
-  id?: number;
 };
 
 type DataContextType = {

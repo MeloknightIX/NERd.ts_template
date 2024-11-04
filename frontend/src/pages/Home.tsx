@@ -3,19 +3,43 @@ import { useDataContext } from "../utils/DataContext";
 import { useState } from "react";
 
 const Home = () => {
-  const { data, isLoading, error, postData, isOffline } = useDataContext();
-  const [form, setForm] = useState({ key: "", value: "" });
+  const { data, isLoading, error, isOffline, postData, deleteData } =
+    useDataContext();
+  const defaultForm = { key: "", value: "" };
+  const [form, setForm] = useState(defaultForm);
 
-  if (isLoading) return <div className="loading">loading…</div>;
-  if (error) return <div className="error">Error: {error}</div>;
+  if (error)
+    return (
+      <div className="error">
+        error loading data <br />
+        {error}
+      </div>
+    );
   return (
     <div>
       <h1>Hello World</h1>
-      <h3>This is your stack: </h3>
+      <h3>This is your stack: {isLoading ? "(loading)" : ""} </h3>
       <ul>
         {data.map((item) => (
-          <li key={item.key}>
+          <li key={item.id} style={{ display: "flex", columnGap: "0.5em" }}>
             {item.key}: {item.value}
+            <button
+              style={{
+                padding: "0.125em",
+                backgroundColor: "unset",
+                border: "0.5px solid gray",
+                borderRadius: "10px",
+                fontSize: "1rem",
+              }}
+              className="material-symbols-outlined"
+              disabled={isOffline}
+              title={isOffline ? "only available when online" : undefined}
+              onClick={() => {
+                if (item.id) deleteData(item.id);
+              }}
+            >
+              delete
+            </button>
           </li>
         ))}
       </ul>
@@ -23,7 +47,8 @@ const Home = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          if (form.key !== "" && form.value !== "") postData(form);
+          if (form.key !== "") postData(form);
+          setForm(defaultForm);
         }}
       >
         <input
