@@ -3,7 +3,7 @@ import { useDataContext } from "../utils/DataContext";
 import { useState } from "react";
 
 const Home = () => {
-  const { data, isLoading, error, postData } = useDataContext();
+  const { data, isLoading, error, postData, isOffline } = useDataContext();
   const [form, setForm] = useState({ key: "", value: "" });
 
   if (isLoading) return <div className="loading">loading…</div>;
@@ -46,7 +46,12 @@ const Home = () => {
             setForm((prev) => ({ ...prev, value: e.target.value }))
           }
         />
-        <input type="submit" value="submit" />
+        <input
+          type="submit"
+          value="add"
+          disabled={isOffline}
+          title={isOffline ? "only available when online" : undefined}
+        />
       </form>
       <Link to="/somestringthatcannotbefound">
         Check out the not-found page!

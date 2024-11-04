@@ -17,6 +17,7 @@ type DataContextType = {
   isLoading: boolean;
   error: null | string;
   postData: (newData: DataType) => Promise<void>;
+  isOffline: boolean;
 };
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -29,6 +30,7 @@ export const DataProvider = ({ children }: DataProviderProps) => {
   const [data, setData] = useState<DataType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<null | string>(null);
+  const [isOffline, setIsOffline] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +49,21 @@ export const DataProvider = ({ children }: DataProviderProps) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOffline(false);
+    };
+    const handleOffline = () => {
+      setIsOffline(true);
+    };
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
   const postData = async (newData: DataType) => {
     const prevData = data;
     try {
@@ -57,12 +74,14 @@ export const DataProvider = ({ children }: DataProviderProps) => {
       // update context
       setData([...prevData, newData]);
     } catch (error) {
-      window.alert("failed to update: you must be online");
+      console.error("failed to update: you must be online");
     }
   };
 
   return (
-    <DataContext.Provider value={{ data, isLoading, error, postData }}>
+    <DataContext.Provider
+      value={{ data, isLoading, error, postData, isOffline }}
+    >
       {children}
     </DataContext.Provider>
   );
