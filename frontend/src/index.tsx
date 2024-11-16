@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root") as Container).render(
   </React.StrictMode>
 );
 
-const serviceWorkerOptIn = true;
+const serviceWorkerOptIn = false;
 
 if (serviceWorkerOptIn && "serviceWorker" in navigator) {
   navigator.serviceWorker
