@@ -3,7 +3,7 @@ import dataRoutes from "./routes/dataRoutes";
 import path, { dirname } from "path";
 import { hostname } from "os";
 import { fileURLToPath } from "url";
-import { configDotenv } from "../node_modules/dotenv/lib/main";
+import { configDotenv } from "dotenv";
 
 configDotenv({ path: process.cwd() + "../.env" });
 
