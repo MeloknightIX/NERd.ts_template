@@ -1,11 +1,11 @@
-import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import dataRoutes from "./routes/dataRoutes";
 import path, { dirname } from "path";
 import { hostname } from "os";
 import { fileURLToPath } from "url";
+import { configDotenv } from "../node_modules/dotenv/lib/main";
 
-dotenv.config({ path: process.cwd() + "../.env" });
+configDotenv({ path: process.cwd() + "../.env" });
 
 //express app
 const app = express();

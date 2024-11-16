@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import useIsOffline from "../utils/useIsOffline";
 
 export type DataType = {
   id?: number;
@@ -33,22 +34,7 @@ export const DataProvider = ({ children }: DataProviderProps) => {
   const [data, setData] = useState<DataType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<null | string>(null);
-  const [isOffline, setIsOffline] = useState(false);
-
-  useEffect(() => {
-    const handleOnline = () => {
-      setIsOffline(false);
-    };
-    const handleOffline = () => {
-      setIsOffline(true);
-    };
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
-  }, []);
+  const { isOffline } = useIsOffline();
 
   useEffect(() => {
     getData();
