@@ -1,11 +1,21 @@
 import { Link } from "react-router-dom";
 import FlexContainer from "../components/FlexContainer";
-import { DataType, useDataContext } from "../components/DataContext";
+import { useDataContext } from "../components/DataContext";
+import getColor from "../utils/getColor";
 
 const Home = () => {
   const { isLoading, data, error } = useDataContext();
+
   return (
-    <FlexContainer>
+    <FlexContainer
+      style={{
+        backgroundImage: `radial-gradient(
+          ${getColor("main")},
+        ${getColor("background")}
+        )`,
+        color: getColor("text"),
+      }}
+    >
       <h1>Hello World</h1>
       <FlexContainer style={{ border: "1px solid" }}>
         <p>This is your stack: {isLoading && !error ? "(loading…)" : ""}</p>
