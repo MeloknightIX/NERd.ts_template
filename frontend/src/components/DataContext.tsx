@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   createContext,
   ReactNode,
@@ -6,11 +5,12 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useDELETE, useGET, usePATCH, usePOST } from "../utils/useFetch";
 import useIsOffline from "../utils/useIsOffline";
 
 export type DataType = {
-  id?: number;
-  key: string;
+  id: number;
+  name: string;
   value: string;
 };
 
@@ -19,9 +19,9 @@ type DataContextType = {
   isLoading: boolean;
   error: null | string;
   isOffline: boolean;
-  postData: (newData: DataType) => Promise<void>;
-  deleteData: (index: number) => Promise<void>;
-  patchData: (index: number, newData: DataType) => Promise<void>;
+  postDataCtx: (newData: DataType) => Promise<void>;
+  deleteDataCtx: (index: number) => Promise<void>;
+  patchDataCtx: (index: number, newData: DataType) => Promise<void>;
 };
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -31,54 +31,61 @@ type DataProviderProps = {
 };
 
 export const DataProvider = ({ children }: DataProviderProps) => {
+  const url = "/api/data/";
+  const { isOffline } = useIsOffline();
+
   const [data, setData] = useState<DataType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<null | string>(null);
-  const { isOffline } = useIsOffline();
+
+  const {
+    data: fetchedData,
+    getData,
+    error: fetchError,
+  } = useGET<DataType>(url);
+  const { postData, error: postError } = usePOST<DataType>(url);
+  const { deleteData, error: deleteError } = useDELETE(url);
+  const { patchData, error: patchError } = usePATCH(url);
 
   useEffect(() => {
-    getData();
+    const fetchDataOnMount = async () => {
+      setIsLoading(true);
+      await getData();
+      setIsLoading(false);
+    };
+    fetchDataOnMount();
   }, []);
 
-  const getData = async () => {
+  useEffect(() => {
+    if (fetchedData) setData(fetchedData);
+    setError(fetchError);
+  }, [fetchedData, fetchError]);
+
+  const postDataCtx = async (newData: DataType) => {
+    if (isOffline) return setError("you must be online to change data");
     setIsLoading(true);
-    try {
-      const res = await axios.get<DataType[]>("api/data/");
-      setData(res.data);
-    } catch (error) {
-      setError("failed fetching data");
-    } finally {
-      setIsLoading(false);
-    }
+    await postData(newData);
+    await getData();
+    setIsLoading(false);
+    setError(postError);
   };
-
-  const postData = async (newData: DataType) => {
-    try {
-      await axios.post("api/data/", newData, {
-        headers: { "Content-Type": "application/json" },
-      });
-      getData();
-    } catch (error) {
-      console.error("failed to add: you must be online");
-    }
+  const deleteDataCtx = async (id: number) => {
+    if (isOffline) return setError("you must be online to change data");
+    if (id < 0) return setError("you must enter a valid id");
+    setIsLoading(true);
+    await deleteData(id);
+    await getData();
+    setIsLoading(false);
+    setError(deleteError);
   };
-
-  const deleteData = async (id: number) => {
-    try {
-      await axios.delete("api/data/" + id);
-      getData();
-    } catch (error) {
-      console.error("failed to delete: you must be online");
-    }
-  };
-
-  const patchData = async (id: number, newData: DataType) => {
-    try {
-      await axios.patch("api/data/" + id, newData);
-      getData();
-    } catch (error) {
-      console.error("failed to update: you must be online");
-    }
+  const patchDataCtx = async (id: number, newData: DataType) => {
+    if (isOffline) return setError("you must be online to change data");
+    if (id < 0) return setError("you must enter a valid id");
+    setIsLoading(true);
+    await patchData(id, newData);
+    await getData();
+    setIsLoading(false);
+    setError(patchError);
   };
 
   return (
@@ -87,9 +94,9 @@ export const DataProvider = ({ children }: DataProviderProps) => {
         data,
         isLoading,
         error,
-        postData,
-        deleteData,
-        patchData,
+        postDataCtx,
+        deleteDataCtx,
+        patchDataCtx,
         isOffline,
       }}
     >

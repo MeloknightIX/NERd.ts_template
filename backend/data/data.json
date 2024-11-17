@@ -1,0 +1,27 @@
+[
+  {
+    "id": 0,
+    "name": "N",
+    "value": "Node"
+  },
+  {
+    "id": 1,
+    "name": "E",
+    "value": "Express"
+  },
+  {
+    "id": 2,
+    "name": "R",
+    "value": "React"
+  },
+  {
+    "id": 3,
+    "name": "d",
+    "value": "any database solution"
+  },
+  {
+    "id": 4,
+    "name": ".ts",
+    "value": "TypeScript"
+  }
+]
