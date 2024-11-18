@@ -9,3 +9,4 @@ const getNewId = <T extends WithId>(data: T[]): number => {
   });
   return maxId + 1;
 };
+export default getNewId;

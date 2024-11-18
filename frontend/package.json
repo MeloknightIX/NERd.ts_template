@@ -10,6 +10,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.60.5",
     "axios": "^1.7.7",
     "nth-check": "^2.1.1",
     "react": "^18.3.1",

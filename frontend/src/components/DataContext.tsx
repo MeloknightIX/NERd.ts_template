@@ -1,12 +1,7 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { useDELETE, useGET, usePATCH, usePOST } from "../utils/useFetch";
+import { createContext, ReactNode, useContext } from "react";
 import useIsOffline from "../utils/useIsOffline";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteData, fetchData, patchData, postData } from "../utils/fetchData";
 
 export type DataType = {
   id: number;
@@ -15,13 +10,13 @@ export type DataType = {
 };
 
 type DataContextType = {
-  data: DataType[];
+  data?: DataType[];
   isLoading: boolean;
   error: null | string;
   isOffline: boolean;
-  postDataCtx: (newData: DataType) => Promise<void>;
-  deleteDataCtx: (index: number) => Promise<void>;
-  patchDataCtx: (index: number, newData: DataType) => Promise<void>;
+  addData: (newData: DataType) => void;
+  updateData: (id: number, updatedData: DataType) => void;
+  deleteData: (id: number) => void;
 };
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -33,81 +28,66 @@ type DataProviderProps = {
 export const DataProvider = ({ children }: DataProviderProps) => {
   const url = "/api/data/";
   const { isOffline } = useIsOffline();
+  const queryClient = useQueryClient();
 
-  const [data, setData] = useState<DataType[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<null | string>(null);
-
-  const {
-    data: fetchedData,
-    getData,
-    error: fetchError,
-  } = useGET<DataType>(url);
-  const { postData, error: postError } = usePOST<DataType>(url);
-  const { deleteData, error: deleteError } = useDELETE(url);
-  const { patchData, error: patchError } = usePATCH(url);
-
-  useEffect(() => {
-    const fetchDataOnMount = async () => {
-      setIsLoading(true);
-      await getData();
-      setIsLoading(false);
-    };
-    fetchDataOnMount();
-  }, []);
-
-  useEffect(() => {
-    if (fetchedData) setData(fetchedData);
-    setError(fetchError);
-  }, [fetchedData, fetchError]);
-
-  const postDataCtx = async (newData: DataType) => {
-    if (isOffline) return setError("you must be online to change data");
-    setIsLoading(true);
-    await postData(newData);
-    await getData();
-    setIsLoading(false);
-    setError(postError);
+  // GET query
+  const { data, isLoading, error } = useQuery<DataType[]>({
+    queryKey: ["data"],
+    queryFn: () => fetchData(url),
+  });
+  // POST, PATCH, DELETE mutations
+  const dataMutationSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ["data"] });
   };
-  const deleteDataCtx = async (id: number) => {
-    if (isOffline) return setError("you must be online to change data");
-    if (id < 0) return setError("you must enter a valid id");
-    setIsLoading(true);
-    await deleteData(id);
-    await getData();
-    setIsLoading(false);
-    setError(deleteError);
+  const dataMutationError = (error: string) => {
+    alert(error || "error changing data");
   };
-  const patchDataCtx = async (id: number, newData: DataType) => {
-    if (isOffline) return setError("you must be online to change data");
-    if (id < 0) return setError("you must enter a valid id");
-    setIsLoading(true);
-    await patchData(id, newData);
-    await getData();
-    setIsLoading(false);
-    setError(patchError);
+  const addDataMutation = useMutation({
+    mutationFn: (newData: DataType) => postData(url, newData),
+    onSuccess: dataMutationSuccess,
+    onError: (error) => dataMutationError(error.message),
+    retry: false,
+  });
+  const updateDataMutation = useMutation({
+    mutationFn: ({ id, updatedData }: { id: number; updatedData: DataType }) =>
+      patchData(url, id, updatedData),
+    onSuccess: dataMutationSuccess,
+    onError: (error) => dataMutationError(error.message),
+    retry: false,
+  });
+  const deleteDataMutation = useMutation({
+    mutationFn: (id: number) => deleteData(url, id),
+    onSuccess: dataMutationSuccess,
+    onError: (error) => dataMutationError(error.message),
+    retry: false,
+  });
+
+  const contextValue: DataContextType = {
+    data,
+    isLoading,
+    error: error ? error.message : null,
+    isOffline,
+    addData: (newData) => {
+      if (isOffline) return alert("to add data, you must be online");
+      addDataMutation.mutate(newData);
+    },
+    updateData: (id, updatedData) => {
+      if (isOffline) return alert("to update data, you must be online");
+      updateDataMutation.mutate({ id, updatedData });
+    },
+    deleteData: (id) => {
+      if (isOffline) return alert("to delete data, you must be online");
+      deleteDataMutation.mutate(id);
+    },
   };
 
   return (
-    <DataContext.Provider
-      value={{
-        data,
-        isLoading,
-        error,
-        postDataCtx,
-        deleteDataCtx,
-        patchDataCtx,
-        isOffline,
-      }}
-    >
-      {children}
-    </DataContext.Provider>
+    <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>
   );
 };
 
-export const useDataContext = () => {
+export const useData = () => {
   const context = useContext(DataContext);
-  if (!context)
-    throw new Error("useDataContext must be used within a DataProvider");
+  if (!context) throw new Error("useData must be used within a DataProvider");
   return context;
 };
