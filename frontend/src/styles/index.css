@@ -18,10 +18,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  font-family: Catamaran, sans-serif;
 }
 
 #root {
   height: 100vh;
+  background-color: var(--c_background);
+  color: var(--c_text);
 }
 
 .app {
@@ -34,7 +38,7 @@
 }
 
 li {
-  margin-left: unset;
+  margin-left: 1em;
 }
 
 /* 
