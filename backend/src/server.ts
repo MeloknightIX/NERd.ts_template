@@ -1,8 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import dataRoutes from "./routes/dataRoutes";
-import path, { dirname } from "path";
+import { join } from "path";
 import { hostname } from "os";
-import { fileURLToPath } from "url";
 import { configDotenv } from "dotenv";
 
 configDotenv({ path: process.cwd() + "../.env" });
@@ -12,26 +11,23 @@ const app = express();
 
 // middleware
 app.use(express.json());
-
-// for production
-if (process.env.NODE_ENV === "production") {
-  const __dirname = dirname(fileURLToPath(import.meta.url));
-  app.use(express.static(path.join(__dirname, "../../frontend/build")));
-  app.get("*", (req: Request, res: Response) => {
-    res.sendFile(path.resolve(__dirname, "../../frontend/build", "index.html"));
-  });
-}
-
-// logging requests
 app.use((req: Request, res: Response, next: NextFunction) => {
   console.info(req.method, req.path);
   next();
 });
 
-// routes
+// api routes
 app.use("/api/data", dataRoutes);
 
-// listen for requests
+// for production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(join(process.cwd(), "../frontend/build")));
+  app.get("*", (req: Request, res: Response) => {
+    res.sendFile(join(process.cwd(), "../frontend/build", "index.html"));
+  });
+}
+
+// start server
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.info("http://" + hostname + ":" + port);
