@@ -24,12 +24,16 @@
 
 #root {
   height: 100vh;
-  background-color: var(--c_background);
-  color: var(--c_text);
 }
 
 .app {
   height: 100%;
+  overflow: hidden;
+  > * {
+    overflow-x: auto;
+  }
+  color: var(--c_text);
+  background-color: var(--c_background);
   display: flex;
   flex-direction: column;
   > * {
