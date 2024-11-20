@@ -1,103 +1,34 @@
-import { Link } from "react-router-dom";
+import { CSSProperties } from "react";
 import FlexContainer from "../components/FlexContainer";
-import { DataType, useData } from "../components/DataContext";
-import getNewId from "../utils/getNewId";
-import { useState } from "react";
-import useIsOffline from "../utils/useIsOffline";
+import DataExample from "../components/Examples/DataExample";
+import SlidesExample from "../components/Examples/SlidesExample";
+import NotFoundExample from "../components/Examples/NotFoundExample";
+import Details from "../components/Details";
+
+export const container: CSSProperties = {
+  padding: "0.5em",
+  border: "1px solid",
+};
 
 const Home = () => {
-  const { isLoading, data, error, addData, deleteData } = useData();
-  const [formData, setFormData] = useState<DataType>({
-    id: -1,
-    name: "",
-    value: "",
-  });
-  const { isOffline } = useIsOffline();
-
   return (
     <FlexContainer>
       <h1>Hello World</h1>
-      <FlexContainer style={{ border: "1px solid" }}>
-        <p>This is your stack: {isLoading ? "(loading…)" : ""}</p>
-        <ul>
-          {data?.map((d) => (
-            <li key={d.id}>
-              <FlexContainer
-                style={{
-                  flexDirection: "row",
-                  alignContent: "center",
-                  padding: "0",
-                }}
-              >
-                <p>
-                  {d.name}: {d.value}
-                </p>
-                <button
-                  onClick={() => deleteData(d.id)}
-                  disabled={isOffline}
-                  style={{
-                    color: isOffline ? "GrayText" : "inherit",
-                    backgroundColor: "inherit",
-                    border: "none",
-                    fontSize: "inherit",
-                  }}
-                  className="material-symbols-outlined"
-                >
-                  delete
-                </button>
-              </FlexContainer>
-            </li>
-          ))}
-        </ul>
-        <FlexContainer>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              addData({ ...formData, id: getNewId(data || []) });
-            }}
-          >
-            <input
-              type="text"
-              name="name"
-              placeholder="short form"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData((prev: DataType) => ({
-                  ...prev,
-                  [e.target.name]: e.target.value,
-                }))
-              }
-            />
-            <input
-              type="text"
-              name="value"
-              placeholder="technology"
-              value={formData.value}
-              onChange={(e) =>
-                setFormData((prev: DataType) => ({
-                  ...prev,
-                  [e.target.name]: e.target.value,
-                }))
-              }
-            />
-            <input type="submit" disabled={isOffline} value="add" />
-          </form>
-        </FlexContainer>
-        {error && (
-          <FlexContainer
-            style={{
-              border: "1px solid red",
-              color: "red",
-              alignItems: "center",
-            }}
-          >
-            {error}
-          </FlexContainer>
-        )}
-      </FlexContainer>
-      <Link to="/somestringthatcannotbefound">
-        Check out the not-found page!
-      </Link>
+      <Details style={{ ...container }}>
+        <h3>example for fetching and changing data using {"<DataContext>"}</h3>
+        <DataExample />
+      </Details>
+      <Details style={{ ...container }}>
+        <h3>
+          example for setting up different slides and switching between them
+          using {"<Slides>"}
+        </h3>
+        <SlidesExample />
+      </Details>
+      <Details style={{ ...container }}>
+        <h3>example for linking to the not-found page</h3>
+        <NotFoundExample />
+      </Details>
     </FlexContainer>
   );
 };
