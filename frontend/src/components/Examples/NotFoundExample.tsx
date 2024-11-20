@@ -3,10 +3,11 @@ import FlexContainer from "../FlexContainer";
 
 const NotFoundExample = () => {
   return (
-    <FlexContainer>
+    <FlexContainer style={{ flexDirection: "row" }}>
       <Link to="/somestringthatcannotbefound">
         Check out the not-found page!
       </Link>
+      <p>(also try going offline)</p>
     </FlexContainer>
   );
 };
