@@ -27,7 +27,7 @@ type DataProviderProps = {
 
 export const DataProvider = ({ children }: DataProviderProps) => {
   const url = "/api/data/";
-  const { isOffline } = useIsOffline();
+  const isOffline = useIsOffline();
   const queryClient = useQueryClient();
 
   // GET query

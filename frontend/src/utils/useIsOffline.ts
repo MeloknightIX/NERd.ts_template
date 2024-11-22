@@ -17,7 +17,7 @@ const useIsOffline = () => {
       window.removeEventListener("offline", handleOffline);
     };
   }, []);
-  return { isOffline };
+  return  isOffline ;
 };
 
 export default useIsOffline;

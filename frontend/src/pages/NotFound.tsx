@@ -3,7 +3,7 @@ import FlexContainer from "../components/FlexContainer";
 import useIsOffline from "../utils/useIsOffline";
 
 const NotFound = () => {
-  const { isOffline } = useIsOffline();
+  const isOffline = useIsOffline();
   return (
     <FlexContainer>
       <h1>Not Found</h1>

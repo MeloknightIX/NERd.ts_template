@@ -11,7 +11,7 @@ const DataExample = () => {
     name: "",
     value: "",
   });
-  const { isOffline } = useIsOffline();
+  const isOffline = useIsOffline();
   return (
     <FlexContainer>
       <p>This is your stack: {isLoading ? "(loading…)" : ""}</p>
