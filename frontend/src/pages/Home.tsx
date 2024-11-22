@@ -4,6 +4,8 @@ import DataExample from "../components/examples/DataExample";
 import SlidesExample from "../components/examples/SlidesExample";
 import NotFoundExample from "../components/examples/NotFoundExample";
 import Details from "../components/Details";
+import useDarkmode from "../utils/useDarkmode";
+import getColor from "../utils/getColor";
 
 export const container: CSSProperties = {
   padding: "0.5em",
@@ -11,9 +13,30 @@ export const container: CSSProperties = {
 };
 
 const Home = () => {
+  const { toggleDarkmode } = useDarkmode();
   return (
     <FlexContainer>
-      <h1>Hello World</h1>
+      <FlexContainer
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignContent: "center",
+          paddingLeft: 0,
+          paddingRight: 0,
+        }}
+      >
+        <h1>Hello World</h1>
+        <span
+          onClick={toggleDarkmode}
+          style={{
+            fontSize: "2em",
+            alignContent: "center",
+          }}
+          className="material-symbols-outlined"
+        >
+          contrast_circle
+        </span>
+      </FlexContainer>
       <Details style={{ ...container }}>
         <h3>service workers and PWA</h3>
         <p>
