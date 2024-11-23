@@ -2,13 +2,14 @@ import { CSSProperties, ReactNode } from "react";
 
 type FlexProps = {
   children?: ReactNode;
+  row?: boolean;
   style?: CSSProperties;
 };
 
-const Flex = ({ children, style }: FlexProps) => {
+const Flex = ({ children, row, style }: FlexProps) => {
   const FlexStyles: CSSProperties = {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: row ? "row" : "column",
     flexWrap: "nowrap",
     padding: "0.5em",
     gap: "0.5em",

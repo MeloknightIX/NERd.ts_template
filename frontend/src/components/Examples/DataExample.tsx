@@ -19,8 +19,8 @@ const DataExample = () => {
         {data?.map((d) => (
           <li key={d.id}>
             <Flex
+              row
               style={{
-                flexDirection: "row",
                 alignContent: "center",
                 padding: "0",
               }}

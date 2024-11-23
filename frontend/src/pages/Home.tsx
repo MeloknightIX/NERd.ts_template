@@ -10,8 +10,8 @@ const Home = () => {
   return (
     <Flex>
       <Flex
+        row
         style={{
-          flexDirection: "row",
           justifyContent: "space-between",
           alignContent: "center",
           paddingLeft: 0,

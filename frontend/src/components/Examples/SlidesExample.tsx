@@ -6,7 +6,7 @@ const SlidesExample = () => {
   const slidesRef = useRef<SlidesActions>(null);
   return (
     <Flex>
-      <Flex style={{ flexDirection: "row" }}>
+      <Flex row>
         <button onClick={() => slidesRef.current?.setSlide("prev")}>
           previous slide
         </button>

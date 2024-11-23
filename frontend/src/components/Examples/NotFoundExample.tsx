@@ -3,7 +3,7 @@ import Flex from "../Flex";
 
 const NotFoundExample = () => {
   return (
-    <Flex style={{ flexDirection: "row" }}>
+    <Flex row>
       <Link to="/somestringthatcannotbefound">
         Check out the not-found page!
       </Link>
