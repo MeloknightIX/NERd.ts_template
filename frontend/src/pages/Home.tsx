@@ -1,4 +1,4 @@
-import FlexContainer from "../components/FlexContainer";
+import Flex from "../components/Flex";
 import DataExample from "../components/examples/DataExample";
 import SlidesExample from "../components/examples/SlidesExample";
 import NotFoundExample from "../components/examples/NotFoundExample";
@@ -8,8 +8,8 @@ import useDarkmode from "../utils/useDarkmode";
 const Home = () => {
   const { toggleDarkmode } = useDarkmode();
   return (
-    <FlexContainer>
-      <FlexContainer
+    <Flex>
+      <Flex
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
@@ -29,7 +29,7 @@ const Home = () => {
         >
           contrast_circle
         </span>
-      </FlexContainer>
+      </Flex>
       <Details>
         <h3>service workers and PWA</h3>
         <p>
@@ -53,7 +53,7 @@ const Home = () => {
         <h3>example for linking to the not-found page</h3>
         <NotFoundExample />
       </Details>
-    </FlexContainer>
+    </Flex>
   );
 };
 

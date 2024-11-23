@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DataType, useData } from "../DataContext";
-import FlexContainer from "../FlexContainer";
+import Flex from "../Flex";
 import useIsOffline from "../../utils/useIsOffline";
 import getMaxId from "../../utils/getMaxId";
 
@@ -13,12 +13,12 @@ const DataExample = () => {
   });
   const isOffline = useIsOffline();
   return (
-    <FlexContainer>
+    <Flex>
       <p>This is your stack: {isLoading ? "(loading…)" : ""}</p>
       <ul>
         {data?.map((d) => (
           <li key={d.id}>
-            <FlexContainer
+            <Flex
               style={{
                 flexDirection: "row",
                 alignContent: "center",
@@ -41,11 +41,11 @@ const DataExample = () => {
               >
                 delete
               </button>
-            </FlexContainer>
+            </Flex>
           </li>
         ))}
       </ul>
-      <FlexContainer>
+      <Flex>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -78,9 +78,9 @@ const DataExample = () => {
           />
           <input type="submit" disabled={isOffline} value="add" />
         </form>
-      </FlexContainer>
+      </Flex>
       {error && (
-        <FlexContainer
+        <Flex
           style={{
             border: "1px solid red",
             color: "red",
@@ -88,9 +88,9 @@ const DataExample = () => {
           }}
         >
           {error}
-        </FlexContainer>
+        </Flex>
       )}
-    </FlexContainer>
+    </Flex>
   );
 };
 export default DataExample;

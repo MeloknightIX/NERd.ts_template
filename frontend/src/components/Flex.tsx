@@ -1,12 +1,12 @@
 import { CSSProperties, ReactNode } from "react";
 
-type FlexContainerProps = {
+type FlexProps = {
   children?: ReactNode;
   style?: CSSProperties;
 };
 
-const FlexContainer = ({ children, style }: FlexContainerProps) => {
-  const FlexContainerStyles: CSSProperties = {
+const Flex = ({ children, style }: FlexProps) => {
+  const FlexStyles: CSSProperties = {
     display: "flex",
     flexDirection: "column",
     flexWrap: "nowrap",
@@ -17,7 +17,7 @@ const FlexContainer = ({ children, style }: FlexContainerProps) => {
     alignItems: "inherit",
     alignContent: "inherit",
   };
-  return <div style={{ ...FlexContainerStyles, ...style }}>{children}</div>;
+  return <div style={{ ...FlexStyles, ...style }}>{children}</div>;
 };
 
-export default FlexContainer;
+export default Flex;

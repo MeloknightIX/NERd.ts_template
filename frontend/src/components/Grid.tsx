@@ -1,12 +1,12 @@
 import { CSSProperties, ReactNode } from "react";
 
-type GridContainerProps = {
+type GridProps = {
   children?: ReactNode;
   style?: CSSProperties;
 };
 
-const GridContainer = (props: GridContainerProps) => {
-  const GridContainerStyles: CSSProperties = {
+const Grid = (props: GridProps) => {
+  const GridStyles: CSSProperties = {
     display: "grid",
     gridTemplateRows: "auto",
     gridTemplateColumns: "auto",
@@ -18,11 +18,7 @@ const GridContainer = (props: GridContainerProps) => {
     alignContent: "inherit",
     justifyItems: "inherit",
   };
-  return (
-    <div style={{ ...GridContainerStyles, ...props.style }}>
-      {props.children}
-    </div>
-  );
+  return <div style={{ ...GridStyles, ...props.style }}>{props.children}</div>;
 };
 
-export default GridContainer;
+export default Grid;

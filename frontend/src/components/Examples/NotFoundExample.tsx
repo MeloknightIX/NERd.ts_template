@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import FlexContainer from "../FlexContainer";
+import Flex from "../Flex";
 
 const NotFoundExample = () => {
   return (
-    <FlexContainer style={{ flexDirection: "row" }}>
+    <Flex style={{ flexDirection: "row" }}>
       <Link to="/somestringthatcannotbefound">
         Check out the not-found page!
       </Link>
       <p>(also try going offline)</p>
-    </FlexContainer>
+    </Flex>
   );
 };
 export default NotFoundExample;

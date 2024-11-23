@@ -1,6 +1,5 @@
 import { Children, CSSProperties, ReactNode, useState } from "react";
-import FlexContainer from "./FlexContainer";
-import GridContainer from "./GridContainer";
+import Grid from "./Grid";
 
 type DetailsProps = {
   children: ReactNode[];
@@ -34,17 +33,17 @@ const Details = ({ children, style, summaryStyle, icons }: DetailsProps) => {
         style={{ listStyle: "none", ...summaryStyle }}
         aria-expanded={isOpen}
       >
-        <GridContainer style={{ gridTemplateColumns: "1em 1fr" }}>
+        <Grid style={{ gridTemplateColumns: "1em 1fr" }}>
           {isOpen ? openIcon : closedIcon} {childrenArray[0]}
-        </GridContainer>
+        </Grid>
       </summary>
-      <GridContainer style={{ gridTemplateColumns: "1em 1fr" }}>
+      <Grid style={{ gridTemplateColumns: "1em 1fr" }}>
         {childrenArray.slice(1).map((child, index) => (
           <div key={index} style={{ gridColumn: 2 }}>
             {child}
           </div>
         ))}
-      </GridContainer>
+      </Grid>
     </details>
   );
 };
