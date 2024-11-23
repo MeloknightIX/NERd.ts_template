@@ -56,6 +56,7 @@ const Details = ({ children, style, summaryStyle, icons }: DetailsProps) => {
           {isOpen ? openIcon : closedIcon} {childrenArray[0]}
         </Grid>
       </summary>
+      <hr />
       <Grid style={{ gridTemplateColumns: "1em 1fr" }}>
         {childrenArray.slice(1).map((child, index) => (
           <div key={index} style={{ gridColumn: 2 }}>

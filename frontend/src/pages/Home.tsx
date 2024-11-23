@@ -38,7 +38,7 @@ const Home = () => {
           https.
         </p>
       </Details>
-      <Details icons={[<h3>{">"}</h3>, <h3>v</h3>]}>
+      <Details icons={[">", "v"]}>
         <h3>example for fetching and changing data using {"<DataContext>"}</h3>
         <DataExample />
       </Details>
