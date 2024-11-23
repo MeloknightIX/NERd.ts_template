@@ -5,7 +5,7 @@ type DetailsProps = {
   children: ReactNode[];
   style?: CSSProperties;
   summaryStyle?: CSSProperties;
-  icons?: [ReactNode | string, ReactNode | string];
+  icons?: [string, string];
 };
 
 const container: CSSProperties = {
@@ -21,8 +21,27 @@ const Details = ({ children, style, summaryStyle, icons }: DetailsProps) => {
     return null;
   }
 
-  const closedIcon = (icons && icons[0]) || "▶" || ">";
-  const openIcon = (icons && icons[1]) || "▼" || "v";
+  const iconStyle: CSSProperties = {
+    justifySelf: "center",
+    alignSelf: "center",
+  };
+
+  const closedIcon =
+    icons && icons[0] ? (
+      <span style={iconStyle}>{icons[0]}</span>
+    ) : (
+      <span style={iconStyle} className="material-symbols-outlined">
+        expand_circle_right
+      </span>
+    );
+  const openIcon =
+    icons && icons[1] ? (
+      <span style={iconStyle}>{icons[1]}</span>
+    ) : (
+      <span style={iconStyle} className="material-symbols-outlined">
+        expand_circle_down
+      </span>
+    );
 
   return (
     <details

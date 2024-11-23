@@ -42,3 +42,7 @@
 li {
   margin-left: 1em;
 }
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
