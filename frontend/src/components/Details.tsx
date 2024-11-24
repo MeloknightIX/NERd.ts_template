@@ -46,7 +46,10 @@ const Details = ({ children, style, summaryStyle, icons }: DetailsProps) => {
   return (
     <details
       style={{ ...container, ...style }}
-      onToggle={(e) => setIsOpen((e.target as HTMLDetailsElement).open)}
+      onToggle={(e) => {
+        if (e.target !== e.currentTarget) return;
+        setIsOpen((e.target as HTMLDetailsElement).open);
+      }}
     >
       <summary
         style={{ listStyle: "none", ...summaryStyle }}

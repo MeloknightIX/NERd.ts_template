@@ -3,6 +3,7 @@ import SlidesExample from "../components/examples/SlidesExample";
 import NotFoundExample from "../components/examples/NotFoundExample";
 import Details from "../components/Details";
 import Layout from "../components/Layout";
+import DetailsExample from "../components/examples/DetailsExample";
 
 const Home = () => {
   return (
@@ -16,16 +17,20 @@ const Home = () => {
           https.
         </p>
       </Details>
-      <Details icons={[">", "v"]}>
+      <Details>
         <h3>example for fetching and changing data using {"<DataContext>"}</h3>
         <DataExample />
       </Details>
-      <Details icons={["?)", "✔︎)"]}>
+      <Details>
         <h3>
           example for setting up different slides and switching between them
           using {"<Slides>"}
         </h3>
         <SlidesExample />
+      </Details>
+      <Details>
+        <h3>example for using custom {"<Details>"} icons</h3>
+        <DetailsExample />
       </Details>
       <Details>
         <h3>example for linking to the not-found page</h3>
