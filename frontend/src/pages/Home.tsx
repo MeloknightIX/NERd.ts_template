@@ -1,35 +1,13 @@
-import Flex from "../components/Flex";
 import DataExample from "../components/examples/DataExample";
 import SlidesExample from "../components/examples/SlidesExample";
 import NotFoundExample from "../components/examples/NotFoundExample";
 import Details from "../components/Details";
-import useDarkmode from "../utils/useDarkmode";
+import Layout from "../components/Layout";
 
 const Home = () => {
-  const { toggleDarkmode } = useDarkmode();
   return (
-    <Flex>
-      <Flex
-        row
-        style={{
-          justifyContent: "space-between",
-          alignContent: "center",
-          paddingLeft: 0,
-          paddingRight: 0,
-        }}
-      >
-        <h1>Hello World</h1>
-        <span
-          onClick={toggleDarkmode}
-          style={{
-            fontSize: "2em",
-            alignContent: "center",
-          }}
-          className="material-symbols-outlined"
-        >
-          contrast_circle
-        </span>
-      </Flex>
+    <Layout>
+      <h1>Hello World</h1>
       <Details>
         <h3>service workers and PWA</h3>
         <p>
@@ -53,7 +31,7 @@ const Home = () => {
         <h3>example for linking to the not-found page</h3>
         <NotFoundExample />
       </Details>
-    </Flex>
+    </Layout>
   );
 };
 
