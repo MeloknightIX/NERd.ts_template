@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
+    "install-fix": "cd ../frontend && npm install && npm audit fix && cd ../backend && npm install && npm audit fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development tsx watch src/server.ts",
-    "fetchDependencies": "cd ../frontend && npm install && npm audit fix && cd ../backend && npm install && npm audit fix",
     "start": "cross-env NODE_ENV=production PORT=4000 tsx src/server.ts",
     "build-start": "cd ../frontend && npm run build && cd ../backend && npm run start"
   },
