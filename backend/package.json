@@ -5,9 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development tsx watch src/server.ts",
+    "fetchDependencies": "cd ../frontend && npm install && npm audit fix && cd ../backend && npm install && npm audit fix",
     "start": "cross-env NODE_ENV=production PORT=4000 tsx src/server.ts",
-    "build-start": "cd ../frontend && npm run build && cd ../backend && npm run start",
-    "install": "cd ../frontend && npm install && cd ../backend && npm install"
+    "build-start": "cd ../frontend && npm run build && cd ../backend && npm run start"
   },
   "author": "meloknightix",
   "license": "ISC",
