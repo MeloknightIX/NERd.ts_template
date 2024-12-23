@@ -11,7 +11,7 @@ export const readData = async (dataPath: string) => {
 };
 export const writeData = async (dataPath: string, data: any) => {
   try {
-    await writeFile(dataPath, JSON.stringify(data, null, 2));
+    await writeFile(dataPath, JSON.stringify(data, null, 2), "utf-8");
   } catch (error) {
     console.error("Error writing data:", error);
     throw new Error("Could not write data");
