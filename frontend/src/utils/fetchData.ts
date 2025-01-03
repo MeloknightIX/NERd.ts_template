@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import getErrorMessage from "./getErrorMessage";
 
 export const fetchData = async <OutputType>(url: string) => {

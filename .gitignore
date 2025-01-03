@@ -1,10 +1,10 @@
-# ignore the node modules
-node_modules
-# ignore the production build
-build
-# ignore private files
-private
 # ignore all hidden files
 .*
 # do not ignore .gitignore files (even though they are hidden)
 !.gitignore
+# ignore the node modules
+node_modules
+# ignore the production build
+build
+#ignore users.json
+users.json

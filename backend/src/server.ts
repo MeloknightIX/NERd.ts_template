@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import dataRoutes from "./routes/dataRoutes";
+import userRoutes from "./routes/userRoutes";
 import { join } from "path";
 import { hostname } from "os";
 import { configDotenv } from "dotenv";
@@ -18,6 +19,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // api routes
 app.use("/api/data", dataRoutes);
+app.use("/api/user", userRoutes);
 
 // for production
 if (process.env.NODE_ENV === "production") {
