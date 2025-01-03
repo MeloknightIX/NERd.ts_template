@@ -4,7 +4,7 @@ import { join } from "path";
 import { hostname } from "os";
 import { configDotenv } from "dotenv";
 
-configDotenv({ path: process.cwd() + "../.env" });
+configDotenv({ path: process.cwd() + "./.env" });
 
 //express app
 const app = express();

@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM, { Container } from "react-dom/client";
-import "./styles/index.css";
+import "./views/styles/index.css";
 import App from "./App";
-import { DataProvider } from "./components/DataContext";
+import { DataProvider } from "./views/components/DataContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();

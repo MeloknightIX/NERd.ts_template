@@ -1,9 +1,9 @@
-import DataExample from "../components/examples/DataExample";
-import SlidesExample from "../components/examples/SlidesExample";
-import NotFoundExample from "../components/examples/NotFoundExample";
 import Details from "../components/Details";
-import Layout from "../components/Layout";
+import DataExample from "../components/examples/DataExample";
 import DetailsExample from "../components/examples/DetailsExample";
+import NotFoundExample from "../components/examples/NotFoundExample";
+import SlidesExample from "../components/examples/SlidesExample";
+import Layout from "../components/Layout";
 
 const Home = () => {
   return (

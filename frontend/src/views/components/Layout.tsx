@@ -1,7 +1,7 @@
 import { Children, ReactNode } from "react";
 import Flex from "./Flex";
 import { Link } from "react-router-dom";
-import useDarkmode from "../utils/useDarkmode";
+import useDarkmode from "../../utils/useDarkmode";
 import Grid from "./Grid";
 
 type LayoutProps = {

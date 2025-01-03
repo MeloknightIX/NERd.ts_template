@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { DataType, useData } from "../DataContext";
 import Flex from "../Flex";
-import useIsOffline from "../../utils/useIsOffline";
-import getMaxId from "../../utils/getMaxId";
+import useIsOffline from "../../../utils/useIsOffline";
+import getMaxId from "../../../utils/getMaxId";
 
 const DataExample = () => {
   const { isLoading, data, error, addData, deleteData } = useData();

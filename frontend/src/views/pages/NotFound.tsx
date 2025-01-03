@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useIsOffline from "../utils/useIsOffline";
+import useIsOffline from "../../utils/useIsOffline";
 import Layout from "../components/Layout";
 
 const NotFound = () => {
