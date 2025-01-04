@@ -1,6 +1,5 @@
 import Details from "../components/Details";
 import DataExample from "../components/examples/DataExample";
-import DetailsExample from "../components/examples/DetailsExample";
 import NotFoundExample from "../components/examples/NotFoundExample";
 import SlidesExample from "../components/examples/SlidesExample";
 import Layout from "../components/Layout";
@@ -27,10 +26,6 @@ const Home = () => {
           using {"<Slides>"}
         </h3>
         <SlidesExample />
-      </Details>
-      <Details>
-        <h3>example for using custom {"<Details>"} icons</h3>
-        <DetailsExample />
       </Details>
       <Details>
         <h3>example for linking to the not-found page</h3>
