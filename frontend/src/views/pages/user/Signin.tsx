@@ -12,7 +12,8 @@ type Props = {
 const Signin = ({ to }: Props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { isLoading, error, signin } = useUser();
+  const [account, setAccount] = useState(true);
+  const { isLoading, error, signin, signup } = useUser();
   const navigate = useNavigate();
 
   return (
@@ -22,11 +23,21 @@ const Signin = ({ to }: Props) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          signin(username, password);
+          if (account) signin(username, password);
+          else signup(username, password);
           if (!error && to) navigate(to);
         }}
       >
         <Flex style={{ alignItems: "center" }}>
+          <Flex row>
+            <label htmlFor="account">I already have an account</label>
+            <input
+              type="checkbox"
+              id="account"
+              checked={account}
+              onChange={(e) => setAccount(e.target.checked)}
+            />
+          </Flex>
           <input
             type="text"
             placeholder="username"
@@ -41,7 +52,7 @@ const Signin = ({ to }: Props) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <input type="submit" value="sign in" />
+          <input type="submit" value={account ? "sign in" : "sign up"} />
           <Error error={error} />
         </Flex>
       </form>
