@@ -1,6 +1,6 @@
 import { Children, ReactNode } from "react";
 import Flex from "./Flex";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useDarkmode from "../../utils/useDarkmode";
 import Grid from "./Grid";
 import { useUser } from "../../context/UserContext";
@@ -38,9 +38,36 @@ const Layout = ({ children }: LayoutProps) => {
         <Button icon onClick={toggleDarkmode} tooltip="toggle darkmode">
           contrast_circle
         </Button>
-        <Button icon onClick={signout} tooltip="sign out">
-          logout
-        </Button>
+        <Flex row>
+          {!user && (
+            <Button icon onClick={() => navigate("/signin")} tooltip="sign in">
+              login
+            </Button>
+          )}
+          {user && (
+            <Button
+              icon
+              onClick={() => navigate("/changepw")}
+              tooltip="change password"
+            >
+              password
+            </Button>
+          )}
+          {user && (
+            <Button
+              icon
+              onClick={() => navigate("/delete")}
+              tooltip="delete account"
+            >
+              delete
+            </Button>
+          )}
+          {user && (
+            <Button icon onClick={signout} tooltip="sign out">
+              logout
+            </Button>
+          )}
+        </Flex>
       </Grid>
       {childrenArray.slice(1).map((child, index) => (
         <div key={index}>{child}</div>

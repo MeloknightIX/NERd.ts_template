@@ -24,7 +24,7 @@ const Button = ({
         backgroundColor: "inherit",
         border: icon ? "none" : "1px solid black",
         color: "inherit",
-        fontSize: "2em",
+        fontSize: icon ? "2em" : "inherit",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",

@@ -24,6 +24,7 @@ const Details = ({ children, style, summaryStyle }: DetailsProps) => {
   const iconStyle: CSSProperties = {
     justifySelf: "center",
     alignSelf: "center",
+    fontSize: "1.5em",
   };
 
   return (
@@ -40,11 +41,21 @@ const Details = ({ children, style, summaryStyle }: DetailsProps) => {
       >
         <Grid style={{ gridTemplateColumns: "1em 1fr" }}>
           {isOpen ? (
-            <Button icon tooltip="close" style={iconStyle}>
+            <Button
+              icon
+              onClick={() => setIsOpen(false)}
+              tooltip="close"
+              style={iconStyle}
+            >
               expand_circle_down
             </Button>
           ) : (
-            <Button icon tooltip="close" style={iconStyle}>
+            <Button
+              icon
+              onClick={() => setIsOpen(true)}
+              tooltip="open"
+              style={iconStyle}
+            >
               expand_circle_right
             </Button>
           )}

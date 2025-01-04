@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Flex from "../Flex";
+import Button from "../Button";
 
 const NotFoundExample = () => {
+  const navigate = useNavigate();
   return (
     <Flex row>
-      <Link to="/somestringthatcannotbefound">
+      <Button
+        onClick={() => navigate("/somestringthatcannotbefound")}
+        tooltip="not-found page"
+      >
         Check out the not-found page!
-      </Link>
+      </Button>
       <p>(also try going offline)</p>
     </Flex>
   );
