@@ -1,11 +1,11 @@
 import { Children, CSSProperties, ReactNode, useState } from "react";
 import Grid from "./Grid";
+import Button from "./Button";
 
 type DetailsProps = {
   children: ReactNode[];
   style?: CSSProperties;
   summaryStyle?: CSSProperties;
-  icons?: [string, string];
 };
 
 const container: CSSProperties = {
@@ -13,7 +13,7 @@ const container: CSSProperties = {
   border: "1px solid",
 };
 
-const Details = ({ children, style, summaryStyle, icons }: DetailsProps) => {
+const Details = ({ children, style, summaryStyle }: DetailsProps) => {
   const childrenArray = Children.toArray(children);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,23 +25,6 @@ const Details = ({ children, style, summaryStyle, icons }: DetailsProps) => {
     justifySelf: "center",
     alignSelf: "center",
   };
-
-  const closedIcon =
-    icons && icons[0] ? (
-      <span style={iconStyle}>{icons[0]}</span>
-    ) : (
-      <span style={iconStyle} className="material-symbols-outlined">
-        expand_circle_right
-      </span>
-    );
-  const openIcon =
-    icons && icons[1] ? (
-      <span style={iconStyle}>{icons[1]}</span>
-    ) : (
-      <span style={iconStyle} className="material-symbols-outlined">
-        expand_circle_down
-      </span>
-    );
 
   return (
     <details
@@ -56,7 +39,16 @@ const Details = ({ children, style, summaryStyle, icons }: DetailsProps) => {
         aria-expanded={isOpen}
       >
         <Grid style={{ gridTemplateColumns: "1em 1fr" }}>
-          {isOpen ? openIcon : closedIcon} {childrenArray[0]}
+          {isOpen ? (
+            <Button icon tooltip="close" style={iconStyle}>
+              expand_circle_down
+            </Button>
+          ) : (
+            <Button icon tooltip="close" style={iconStyle}>
+              expand_circle_right
+            </Button>
+          )}
+          {childrenArray[0]}
         </Grid>
       </summary>
       <hr />

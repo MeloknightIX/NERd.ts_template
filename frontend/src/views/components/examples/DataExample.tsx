@@ -4,6 +4,7 @@ import Flex from "../Flex";
 import useIsOffline from "../../../utils/useIsOffline";
 import getMaxId from "../../../utils/getMaxId";
 import Error from "../Error";
+import Button from "../Button";
 
 const DataExample = () => {
   const { isLoading, data, getError, otherError, addData, deleteData } =
@@ -30,19 +31,18 @@ const DataExample = () => {
               <p>
                 {d.name}: {d.value}
               </p>
-              <button
+              <Button
+                icon
                 onClick={() => deleteData(d.id)}
+                tooltip="delete item"
                 disabled={isOffline}
                 style={{
                   color: isOffline ? "GrayText" : "inherit",
-                  backgroundColor: "inherit",
-                  border: "none",
                   fontSize: "inherit",
                 }}
-                className="material-symbols-outlined"
               >
                 delete
-              </button>
+              </Button>
             </Flex>
           </li>
         ))}
