@@ -3,6 +3,7 @@ import { DataType, useData } from "../DataContext";
 import Flex from "../Flex";
 import useIsOffline from "../../../utils/useIsOffline";
 import getMaxId from "../../../utils/getMaxId";
+import Error from "../Error";
 
 const DataExample = () => {
   const { isLoading, data, getError, otherError, addData, deleteData } =
@@ -80,28 +81,8 @@ const DataExample = () => {
           <input type="submit" disabled={isOffline} value="add" />
         </form>
       </Flex>
-      {getError && (
-        <Flex
-          style={{
-            border: "1px solid red",
-            color: "red",
-            alignItems: "center",
-          }}
-        >
-          {getError}
-        </Flex>
-      )}
-      {otherError && (
-        <Flex
-          style={{
-            border: "1px solid red",
-            color: "red",
-            alignItems: "center",
-          }}
-        >
-          {otherError}
-        </Flex>
-      )}
+      <Error error={getError} />
+      <Error error={otherError} />
     </Flex>
   );
 };
