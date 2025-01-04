@@ -17,7 +17,7 @@ const requireAuth = async (
     return res
       .status(401)
       .json({ error: "authorization required: please sign in" });
-  const token = authorization;
+  const token = authorization.split(" ")[1];
 
   const secret = process.env.SECRET;
   if (!secret) throw new Error("no SECRET defined in .env");

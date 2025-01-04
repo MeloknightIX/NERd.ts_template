@@ -1,21 +1,22 @@
 import { useState } from "react";
-import { useUser } from "../../context/UserContext";
-import Layout from "../components/Layout";
-import Flex from "../components/Flex";
-import Error from "../components/Error";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../../context/UserContext";
+import Layout from "../../components/Layout";
+import Flex from "../../components/Flex";
+import Error from "../../components/Error";
 
 type ChangePasswordProps = {
   to: string;
 };
 
 const ChangePassword = ({ to }: ChangePasswordProps) => {
-  const [username, setUsername] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword1, setNewPassword1] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
   const { isLoading, error, changepw } = useUser();
   const navigate = useNavigate();
+  const { user } = useUser();
+  const username = user?.username as string;
 
   return (
     <Layout>
@@ -29,13 +30,6 @@ const ChangePassword = ({ to }: ChangePasswordProps) => {
         }}
       >
         <Flex style={{ alignItems: "center" }}>
-          <input
-            type="text"
-            placeholder="username"
-            autoComplete="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
           <input
             type="password"
             placeholder="old password"

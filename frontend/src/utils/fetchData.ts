@@ -6,7 +6,7 @@ export const fetchData = async <OutputType>(url: string, token?: string) => {
     const res = await axios.get<OutputType[]>(url, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: token ? `Bearer ${token}` : null,
       },
     });
     return res.data;
@@ -20,7 +20,7 @@ export const postData = async (url: string, body: any, token?: string) => {
     const res = await axios.post(url, body, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: token ? `Bearer ${token}` : null,
       },
     });
     return res.data;
@@ -39,7 +39,7 @@ export const patchData = async (
     const res = await axios.patch(`${url}${id}`, body, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: token ? `Bearer ${token}` : null,
       },
     });
     return res.data;
@@ -53,7 +53,7 @@ export const deleteData = async (url: string, id: number, token?: string) => {
     await axios.delete(`${url}${id}`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: token ? `Bearer ${token}` : null,
       },
     });
   } catch (error) {

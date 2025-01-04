@@ -1,29 +1,29 @@
 import { useState } from "react";
-import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
-import Flex from "../components/Flex";
-import Error from "../components/Error";
+import { useUser } from "../../../context/UserContext";
+import Layout from "../../components/Layout";
+import Flex from "../../components/Flex";
+import Error from "../../components/Error";
 
-type DeleteProps = {
-  to: string;
+type Props = {
+  to?: string;
 };
 
-const Delete = ({ to }: DeleteProps) => {
+const Signin = ({ to }: Props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { isLoading, error, deleteUser } = useUser();
+  const { isLoading, error, signin } = useUser();
   const navigate = useNavigate();
 
   return (
     <Layout>
-      <h1>Delete Account</h1>
-      {isLoading && <div>lädt…</div>}
+      <h1>Sign In</h1>
+      {isLoading && <div>loading…</div>}
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          deleteUser(username, password);
-          if (!error) navigate(to);
+          signin(username, password);
+          if (!error && to) navigate(to);
         }}
       >
         <Flex style={{ alignItems: "center" }}>
@@ -41,7 +41,7 @@ const Delete = ({ to }: DeleteProps) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <input type="submit" value="delete account" />
+          <input type="submit" value="sign in" />
           <Error error={error} />
         </Flex>
       </form>
@@ -49,4 +49,4 @@ const Delete = ({ to }: DeleteProps) => {
   );
 };
 
-export default Delete;
+export default Signin;

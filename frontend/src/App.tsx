@@ -2,10 +2,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./views/pages/Home";
 import NotFound from "./views/pages/NotFound";
 import RequireAuth from "./views/components/RequireAuth";
-import Signin from "./views/pages/Signin";
 import Protected from "./views/components/examples/Protected";
-import ChangePassword from "./views/pages/ChangePassword";
-import Delete from "./views/pages/Delete";
+import Signin from "./views/pages/user/Signin";
+import ChangePassword from "./views/pages/user/ChangePassword";
+import Delete from "./views/pages/user/Delete";
 
 const App = () => {
   return (
@@ -26,7 +26,7 @@ const App = () => {
             path="/changepw"
             element={
               <RequireAuth>
-                <ChangePassword to={"/protected"} />
+                <ChangePassword to="/protected" />
               </RequireAuth>
             }
           />
@@ -34,7 +34,7 @@ const App = () => {
             path="/delete"
             element={
               <RequireAuth>
-                <Delete to={"/"} />
+                <Delete to="/" />
               </RequireAuth>
             }
           />

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useUser } from "../../context/UserContext";
-import Signin from "../pages/Signin";
+import Signin from "../pages/user/Signin";
 
 const RequireAuth = ({ children }: { children: ReactNode }) => {
   const { user } = useUser();

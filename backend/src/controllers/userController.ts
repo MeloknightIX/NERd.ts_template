@@ -118,12 +118,11 @@ const signinUser = async (req: Request, res: Response) => {
 
 const changeUserPassword = async (req: Request, res: Response) => {
   try {
-    const { username, oldPassword, newPassword1, newPassword2 } = req.body;
-    v_noEmptyFields([username, oldPassword, newPassword1, newPassword2]);
+    const { username, newPassword1, newPassword2 } = req.body;
+    v_noEmptyFields([username, newPassword1, newPassword2]);
 
     const { user, index, users } = await getUser(username);
     v_userFound(user);
-    v_passwordCorrect(oldPassword, user, "old");
     v_strongPassword(newPassword1);
     v_newPasswords(newPassword1, newPassword2);
 
@@ -144,12 +143,11 @@ const changeUserPassword = async (req: Request, res: Response) => {
 
 const deleteUser = async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;
-    v_noEmptyFields([username, password]);
+    const { username } = req.body;
+    v_noEmptyFields([username]);
 
     const { user, index, users } = await getUser(username);
     v_userFound(user);
-    v_passwordCorrect(password, user);
 
     const updatedUsers = [...users];
     updatedUsers.splice(index, 1);

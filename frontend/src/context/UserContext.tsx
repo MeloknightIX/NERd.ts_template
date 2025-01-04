@@ -35,6 +35,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const url = "/api/user";
+  const token = user?.token;
 
   useEffect(() => {
     const localStorageUser = localStorage.getItem("user");
@@ -87,19 +88,21 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   };
   const changepw = async (
     username: string,
-    oldPassword: string,
     newPassword1: string,
     newPassword2: string
   ) => {
     setIsLoading(true);
     setError(null);
     try {
-      const user = await postData(url + "/changepw", {
-        username,
-        oldPassword,
-        newPassword1,
-        newPassword2,
-      });
+      const user = await postData(
+        url + "/changepw",
+        {
+          username,
+          newPassword1,
+          newPassword2,
+        },
+        token
+      );
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
       setIsLoading(false);
@@ -108,14 +111,17 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
       setError(error.message);
     }
   };
-  const deleteUser = async (username: string, password: string) => {
+  const deleteUser = async (username: string) => {
     setIsLoading(true);
     setError(null);
     try {
-      await postData(url + "/delete", {
-        username,
-        password,
-      });
+      await postData(
+        url + "/delete",
+        {
+          username,
+        },
+        token
+      );
       setUser(null);
       localStorage.removeItem("user");
       setIsLoading(false);
