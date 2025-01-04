@@ -1,13 +1,8 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import useIsOffline from "../../utils/useIsOffline";
+import useIsOffline from "../utils/useIsOffline";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  deleteData,
-  fetchData,
-  patchData,
-  postData,
-} from "../../utils/fetchData";
-import { useUser } from "../../context/UserContext";
+import { deleteData, fetchData, patchData, postData } from "../utils/fetchData";
+import { useUser } from "./UserContext";
 
 export type DataType = {
   id: number;

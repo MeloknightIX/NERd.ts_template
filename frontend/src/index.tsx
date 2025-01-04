@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM, { Container } from "react-dom/client";
 import "./views/styles/index.css";
 import App from "./App";
-import { DataProvider } from "./views/components/DataContext";
+import { DataProvider } from "./context/DataContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { UserContextProvider } from "./context/UserContext";
 
