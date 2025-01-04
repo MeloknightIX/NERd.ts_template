@@ -5,7 +5,8 @@ import useIsOffline from "../../../utils/useIsOffline";
 import getMaxId from "../../../utils/getMaxId";
 
 const DataExample = () => {
-  const { isLoading, data, error, addData, deleteData } = useData();
+  const { isLoading, data, getError, otherError, addData, deleteData } =
+    useData();
   const [formData, setFormData] = useState<DataType>({
     id: -1,
     name: "",
@@ -79,7 +80,7 @@ const DataExample = () => {
           <input type="submit" disabled={isOffline} value="add" />
         </form>
       </Flex>
-      {error && (
+      {getError && (
         <Flex
           style={{
             border: "1px solid red",
@@ -87,7 +88,18 @@ const DataExample = () => {
             alignItems: "center",
           }}
         >
-          {error}
+          {getError}
+        </Flex>
+      )}
+      {otherError && (
+        <Flex
+          style={{
+            border: "1px solid red",
+            color: "red",
+            alignItems: "center",
+          }}
+        >
+          {otherError}
         </Flex>
       )}
     </Flex>
