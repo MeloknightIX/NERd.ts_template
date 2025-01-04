@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import Layout from "../components/Layout";
 import Flex from "../components/Flex";
+import Error from "../components/Error";
 
 const Signin = () => {
   const [username, setUsername] = useState("");
@@ -34,7 +35,7 @@ const Signin = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <input type="submit" value="sign in" />
-          {error && <div>{error}</div>}
+          <Error error={error} />
         </Flex>
       </form>
     </Layout>
