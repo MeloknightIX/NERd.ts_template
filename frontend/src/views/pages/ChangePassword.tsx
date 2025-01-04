@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useUser } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Flex from "../components/Flex";
 import Error from "../components/Error";
+import { useNavigate } from "react-router-dom";
 
 type ChangePasswordProps = {
   to: string;
@@ -19,7 +19,7 @@ const ChangePassword = ({ to }: ChangePasswordProps) => {
 
   return (
     <Layout>
-      <h1>Passwortänderung</h1>
+      <h1>Change Password</h1>
       {isLoading && <div>lädt…</div>}
       <form
         onSubmit={(e) => {

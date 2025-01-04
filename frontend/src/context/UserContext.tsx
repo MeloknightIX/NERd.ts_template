@@ -21,6 +21,7 @@ type UserContextType = {
     newPassword1: string,
     newPassword2: string
   ) => void;
+  deleteUser: (username: string, password: string) => void;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -107,6 +108,22 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
       setError(error.message);
     }
   };
+  const deleteUser = async (username: string, password: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      await postData(url + "/delete", {
+        username,
+        password,
+      });
+      setUser(null);
+      localStorage.removeItem("user");
+      setIsLoading(false);
+    } catch (error: any) {
+      setIsLoading(false);
+      setError(error.message);
+    }
+  };
 
   const contextValue: UserContextType = {
     user,
@@ -116,6 +133,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     signin,
     signout,
     changepw,
+    deleteUser,
   };
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>

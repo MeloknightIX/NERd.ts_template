@@ -5,6 +5,7 @@ import RequireAuth from "./views/components/RequireAuth";
 import Signin from "./views/pages/Signin";
 import Protected from "./views/components/examples/Protected";
 import ChangePassword from "./views/pages/ChangePassword";
+import Delete from "./views/pages/Delete";
 
 const App = () => {
   return (
@@ -20,12 +21,20 @@ const App = () => {
               </RequireAuth>
             }
           />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="/signin" element={<Signin to="/protected" />} />
           <Route
             path="/changepw"
             element={
               <RequireAuth>
-                <ChangePassword to="/protected" />
+                <ChangePassword to={"/protected"} />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/delete"
+            element={
+              <RequireAuth>
+                <Delete to={"/"} />
               </RequireAuth>
             }
           />

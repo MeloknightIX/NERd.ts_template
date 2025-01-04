@@ -8,6 +8,7 @@ const Protected = () => {
     <Layout>
       <h1>this page is protected</h1>
       <p>you have signed in correctly</p>
+      <button onClick={signout}>signout</button>
       <button>
         <Link
           to="/changepw"
@@ -16,7 +17,14 @@ const Protected = () => {
           change password
         </Link>
       </button>
-      <button onClick={signout}>signout</button>
+      <button>
+        <Link
+          to="/delete"
+          style={{ color: "inherit", textDecoration: "inherit" }}
+        >
+          delete account
+        </Link>
+      </button>
     </Layout>
   );
 };

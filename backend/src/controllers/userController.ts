@@ -142,6 +142,24 @@ const changeUserPassword = async (req: Request, res: Response) => {
   }
 };
 
-const deleteUser = async (req: Request, res: Response) => {};
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { username, password } = req.body;
+    v_noEmptyFields([username, password]);
 
-export { signinUser, signupUser, changeUserPassword };
+    const { user, index, users } = await getUser(username);
+    v_userFound(user);
+    v_passwordCorrect(password, user);
+
+    const updatedUsers = [...users];
+    updatedUsers.splice(index, 1);
+
+    await writeFile(path, updatedUsers);
+
+    res.status(200).json({ username });
+  } catch (error) {
+    res.status(400).json({ error: getErrorMessage(error) });
+  }
+};
+
+export { signinUser, signupUser, changeUserPassword, deleteUser };
