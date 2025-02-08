@@ -1,25 +1,18 @@
 import { Children, CSSProperties, ReactNode, useState } from "react";
-import Grid from "./Grid";
 import Button from "./Button";
+import Grid from "./Grid";
 
-type DetailsProps = {
+type Props = {
   children: ReactNode[];
   style?: CSSProperties;
-  summaryStyle?: CSSProperties;
 };
 
-const container: CSSProperties = {
-  padding: "0.5em",
-  border: "1px solid",
-};
-
-const Details = ({ children, style, summaryStyle }: DetailsProps) => {
+const Details = ({ children, style }: Props) => {
   const childrenArray = Children.toArray(children);
   const [isOpen, setIsOpen] = useState(false);
 
-  if (childrenArray.length < 2) {
-    return null;
-  }
+  if (!(childrenArray && childrenArray.length >= 2))
+    throw Error("there must be at least two children provided");
 
   const iconStyle: CSSProperties = {
     justifySelf: "center",
@@ -28,49 +21,41 @@ const Details = ({ children, style, summaryStyle }: DetailsProps) => {
   };
 
   return (
-    <details
-      style={{ ...container, ...style }}
-      onToggle={(e) => {
-        if (e.target !== e.currentTarget) return;
-        setIsOpen((e.target as HTMLDetailsElement).open);
+    <Grid
+      style={{
+        border: "1px solid",
+        gridTemplateColumns: "1.5em 1fr",
+        ...style,
       }}
     >
-      <summary
-        style={{ listStyle: "none", ...summaryStyle }}
-        aria-expanded={isOpen}
-      >
-        <Grid style={{ gridTemplateColumns: "1em 1fr" }}>
-          {isOpen ? (
-            <Button
-              icon
-              onClick={() => setIsOpen(false)}
-              tooltip="close"
-              style={iconStyle}
-            >
-              expand_circle_down
-            </Button>
-          ) : (
-            <Button
-              icon
-              onClick={() => setIsOpen(true)}
-              tooltip="open"
-              style={iconStyle}
-            >
-              expand_circle_right
-            </Button>
-          )}
-          {childrenArray[0]}
-        </Grid>
-      </summary>
-      <hr />
-      <Grid style={{ gridTemplateColumns: "1em 1fr" }}>
-        {childrenArray.slice(1).map((child, index) => (
+      {isOpen ? (
+        <Button
+          icon
+          onClick={() => setIsOpen(false)}
+          tooltip="close"
+          style={iconStyle}
+        >
+          expand_circle_down
+        </Button>
+      ) : (
+        <Button
+          icon
+          onClick={() => setIsOpen(true)}
+          tooltip="open"
+          style={iconStyle}
+        >
+          expand_circle_right
+        </Button>
+      )}
+      {childrenArray[0]}
+      {isOpen &&
+        childrenArray.slice(1).map((child, index) => (
           <div key={index} style={{ gridColumn: 2 }}>
             {child}
           </div>
         ))}
-      </Grid>
-    </details>
+    </Grid>
   );
 };
+
 export default Details;

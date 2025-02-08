@@ -24,8 +24,8 @@ const Layout = ({ children }: LayoutProps) => {
     <Flex>
       <Grid
         style={{
-          gridTemplateColumns: "auto 1fr auto auto",
-          justifyItems: "center",
+          gridTemplateColumns: "auto  1fr auto auto",
+          // justifyItems: "center",
           alignItems: "center",
           paddingLeft: 0,
           paddingRight: 0,
