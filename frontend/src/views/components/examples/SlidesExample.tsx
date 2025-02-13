@@ -1,22 +1,29 @@
 import { useRef } from "react";
 import Flex from "../Flex";
 import Slides, { SlidesActions } from "../Slides";
+import Button from "../Button";
 
 const SlidesExample = () => {
   const slidesRef = useRef<SlidesActions>(null);
   return (
     <Flex>
       <Flex row>
-        <button onClick={() => slidesRef.current?.setSlide("prev")}>
+        <Button
+          onClick={() => slidesRef.current?.setSlide("prev")}
+          tooltip="go to previous slide"
+        >
           previous slide
-        </button>
-        <button onClick={() => slidesRef.current?.setSlide("next")}>
+        </Button>
+        <Button
+          onClick={() => slidesRef.current?.setSlide("next")}
+          tooltip="go to next slide"
+        >
           next slide
-        </button>
+        </Button>
       </Flex>
       <Slides ref={slidesRef}>
         {[1, 2, 3, 4, 5].map((n, i) => (
-          <div key={i}>Slide {n}</div>
+          <Flex key={i}>Slide {n}</Flex>
         ))}
       </Slides>
     </Flex>
