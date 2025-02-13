@@ -20,6 +20,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // api routes
 app.use("/api/data", dataRoutes);
 app.use("/api/user", userRoutes);
+app.use("/uploads", express.static(join(process.cwd(), "data/uploads")));
 
 // for production
 if (process.env.NODE_ENV === "production") {
