@@ -24,6 +24,7 @@ const Button = ({
       style={{
         backgroundColor: "inherit",
         border: icon ? "none" : `1px solid ${getColor("text")}`,
+        padding: icon ? "0" : "0 0.5em",
         color: "inherit",
         fontSize: icon ? "2em" : "inherit",
         cursor: "pointer",
