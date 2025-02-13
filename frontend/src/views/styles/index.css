@@ -46,3 +46,7 @@ li {
 details > summary::-webkit-details-marker {
   display: none;
 }
+
+input {
+  width: 15em;
+}
