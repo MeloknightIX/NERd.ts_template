@@ -1,4 +1,5 @@
 import { CSSProperties, MouseEventHandler, ReactNode } from "react";
+import getColor from "../../utils/getColor";
 
 type Props = {
   children: ReactNode;
@@ -22,7 +23,7 @@ const Button = ({
       onClick={onClick}
       style={{
         backgroundColor: "inherit",
-        border: icon ? "none" : "1px solid black",
+        border: icon ? "none" : `1px solid ${getColor("text")}`,
         color: "inherit",
         fontSize: icon ? "2em" : "inherit",
         cursor: "pointer",
