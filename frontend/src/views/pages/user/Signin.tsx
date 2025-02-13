@@ -36,6 +36,7 @@ const Signin = ({ to }: Props) => {
               id="account"
               checked={account}
               onChange={(e) => setAccount(e.target.checked)}
+              style={{ minWidth: "auto" }}
             />
           </Flex>
           <input
